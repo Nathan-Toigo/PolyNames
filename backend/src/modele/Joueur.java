@@ -18,4 +18,12 @@ public class Joueur extends TableBDD{
         this.id_joueur = id_joueur;
         this.pseudonyme = pseudonyme;
     }
+
+    public int getId_joueur() {
+        return id_joueur;
+    }
+
+    public String getPseudonyme() {
+        return pseudonyme;
+    }
 }

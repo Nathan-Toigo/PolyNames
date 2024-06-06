@@ -18,4 +18,12 @@ public class Etat extends TableBDD{
         this.id_etat = id_etat;
         this.etat = etat;
     }
+
+    public int getId_etat() {
+        return id_etat;
+    }
+
+    public String getEtat() {
+        return etat;
+    }
 }

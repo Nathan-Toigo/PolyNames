@@ -24,4 +24,20 @@ public class Indice extends TableBDD{
         this.N = N;
         this.grille = grille;
     }
+
+    public int getId_indice() {
+        return id_indice;
+    }
+
+    public String getIndice() {
+        return indice;
+    }
+
+    public byte getN() {
+        return N;
+    }
+
+    public Grille getGrille() {
+        return grille;
+    }
 }

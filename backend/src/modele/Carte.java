@@ -31,4 +31,28 @@ public class Carte extends TableBDD{
       this.couleur = couleur;
       this.grille = grille;
    }
+
+   public Boolean getFace_cachee() {
+      return face_cachee;
+   }
+
+   public byte getLigne() {
+      return ligne;
+   }
+
+   public byte getColonne() {
+      return colonne;
+   }
+
+   public Mot getMot() {
+      return mot;
+   }
+
+   public Couleur getCouleur() {
+      return couleur;
+   }
+
+   public Grille getGrille() {
+      return grille;
+   }
 }

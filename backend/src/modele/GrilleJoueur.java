@@ -18,4 +18,12 @@ public class GrilleJoueur extends TableBDD{
         this.grille = grille;
         this.joueur = joueur;
     }
+
+    public Grille getGrille() {
+        return grille;
+    }
+
+    public Joueur getJoueur() {
+        return joueur;
+    }
 }

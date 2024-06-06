@@ -18,4 +18,12 @@ public class Couleur extends TableBDD {
         this.id_couleur = id_couleur;
         this.couleur = couleur;
     }
+
+    public int getId_couleur() {
+        return id_couleur;
+    }
+
+    public String getCouleur() {
+        return couleur;
+    }
 }

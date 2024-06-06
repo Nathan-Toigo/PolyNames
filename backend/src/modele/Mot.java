@@ -8,14 +8,6 @@ public class Mot extends TableBDD{
     private int id_mot;
     private String mot;
 
-    public int getId_mot() {
-        return this.id_mot;
-    }
-
-    public String getMot() {
-        return this.mot;
-    }
-
     public Mot(){
         super("Mot",new ArrayList<>(Arrays.asList("id_mot")));
         this.id_mot = 0;
@@ -26,5 +18,13 @@ public class Mot extends TableBDD{
         super("Mot",new ArrayList<>(Arrays.asList("id_mot")));
         this.id_mot = id_mot;
         this.mot = mot;
+    }
+
+    public int getId_mot() {
+        return this.id_mot;
+    }
+
+    public String getMot() {
+        return this.mot;
     }
 }

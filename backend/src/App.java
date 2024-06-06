@@ -1,23 +1,20 @@
 
-import dao.MotDAO;
-import java.util.ArrayList;
-import java.util.Arrays;
-import modele.Mot;
+import dao.MotDictionnaireDAO;
+import java.util.Dictionary;
+import java.util.Hashtable;
+import modele.MotDictionnaire;
 
 
 public class App {
     public static void main(String[] args) throws Exception {
-        // MotDictionnaireDAO motdao = new MotDictionnaireDAO();
-        // MotDictionnaire motdico = new MotDictionnaire();
-        // var ids = new ArrayList<>(Arrays.asList(1,12));
-        // var mots = motdao.recupererParId(motdico, ids);
-        
-        // System.out.println(mots.getMot());
-        MotDAO motdao = new MotDAO();
-        Mot motdico = new Mot();
-        var ids = new ArrayList<>(Arrays.asList(13));
-        //var mots = motdao.recupererParId(motdico, ids);
-        var mots = motdao.recupererParId(motdico, ids);
-        System.out.println(mots.getMot());
+
+        MotDictionnaireDAO carteDAO = new MotDictionnaireDAO();
+        MotDictionnaire carte = new MotDictionnaire();
+        Dictionary<String,Integer> idCarte = new Hashtable<>();
+        idCarte.put("id_mot",43);
+        idCarte.put("id_dictionnaire",1);
+        var carteResult = carteDAO.recupererParId(carte, idCarte);
+        System.out.println(carteResult.getDictionnaire().getTitre());
+
     }
 }

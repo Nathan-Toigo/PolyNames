@@ -29,4 +29,24 @@ public class Grille extends TableBDD{
         this.etat = etat;
     }
 
+    public int getId_grille() {
+        return id_grille;
+    }
+
+    public int getHauteur_grille() {
+        return hauteur_grille;
+    }
+
+    public int getLargeur_grille() {
+        return largeur_grille;
+    }
+
+    public byte getScore() {
+        return score;
+    }
+
+    public Etat getEtat() {
+        return etat;
+    }
+
 }

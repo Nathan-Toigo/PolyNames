@@ -18,4 +18,12 @@ public class Dictionnaire extends TableBDD{
         this.id_dictionnaire = id_dictionnaire;
         this.titre = titre;
     }
+
+    public int getId_dictionnaire() {
+        return id_dictionnaire;
+    }
+
+    public String getTitre() {
+        return titre;
+    }
 }
