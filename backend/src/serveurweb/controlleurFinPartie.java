@@ -1,5 +1,5 @@
 package serveurweb;
 
-public class controlleurFinPartie {
+public class ControlleurFinPartie {
 
 }

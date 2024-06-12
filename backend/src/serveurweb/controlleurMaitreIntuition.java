@@ -1,5 +1,5 @@
 package serveurweb;
 
-public class controlleurMaitreIntuition {
+public class ControlleurMaitreIntuition {
 
 }

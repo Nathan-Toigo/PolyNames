@@ -2,6 +2,7 @@ package dao;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Dictionary;
 import java.util.Hashtable;
 import modele.Carte;
@@ -40,5 +41,12 @@ public class CarteDAO extends generiqueDAO<Carte> {
         grille = grilleDAO.recupererParId(grille, idGrille);
 
         return new Carte(face_cachee,ligne,colonne,mot,couleur,grille);
+    }
+
+    public ArrayList<Carte> recupererCartesDepuisGrille(Grille grille) throws SQLException{
+        Dictionary<String, String> cles= new Hashtable<>();
+        cles.put("id_grille", Integer.toString(grille.getId_grille()));
+        
+        return this.recupererParChamp(new Carte(),cles);
     }
 }

@@ -3,6 +3,7 @@ package dao;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Dictionary;
 import java.util.Hashtable;
 import modele.Grille;
@@ -28,5 +29,12 @@ public class IndiceDAO extends generiqueDAO<Indice>{
         grille = grilleDAO.recupererParId(grille, idGrille);
         
         return new Indice(id_indice,indice,N,grille);
+    }
+
+    public ArrayList<Indice> recupererIndicesDepuisGrille(Grille grille) throws SQLException{
+        Dictionary<String, String> cles= new Hashtable<>();
+        cles.put("id_grille", Integer.toString(grille.getId_grille()));
+        
+        return this.recupererParChamp(new Indice(),cles);
     }
 }
