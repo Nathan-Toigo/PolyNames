@@ -1,20 +1,20 @@
 
-import dao.MotDictionnaireDAO;
-import java.util.Dictionary;
-import java.util.Hashtable;
-import modele.MotDictionnaire;
+import BaseWebserver.WebServer;
+import BaseWebserver.WebServerContext;
+import serveurweb.exController;
 
 
 public class App {
     public static void main(String[] args) throws Exception {
 
-        MotDictionnaireDAO carteDAO = new MotDictionnaireDAO();
-        MotDictionnaire carte = new MotDictionnaire();
-        Dictionary<String,Integer> idCarte = new Hashtable<>();
-        idCarte.put("id_mot",43);
-        idCarte.put("id_dictionnaire",1);
-        var carteResult = carteDAO.recupererParId(carte, idCarte);
-        System.out.println(carteResult.getDictionnaire().getTitre());
+        WebServer webServer = new WebServer();
+        exController mc = new exController();
+        
+        webServer.getRouter().get("/ex", (WebServerContext context) -> {
+            mc.findAll(context);
+        });
+        
+        webServer.listen(8081);
 
     }
 }
