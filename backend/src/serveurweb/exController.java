@@ -21,8 +21,9 @@ public class exController
         }
     }
 
-    public static void create(WebServerContext context)
+    public static void exParam(WebServerContext context)
     {
-        // Todo
+        String exParam = context.getRequest().getParam("exParam");
+        context.getResponse().json(exParam + " est un caca");
     }
 }

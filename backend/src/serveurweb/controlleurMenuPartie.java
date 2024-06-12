@@ -1,5 +1,5 @@
 package serveurweb;
 
-public class controlleurMenuPartie {
+public class ControlleurMenuPartie {
 
 }
