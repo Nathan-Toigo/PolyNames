@@ -1,12 +1,12 @@
 export class ConnexionService{
     async choisirRole(jeton, role) {
-        // fetch("http://localhost:8080//choisirRole//" + jeton + "//" + role + "//", {
-        //     method: "GET"
-        // });
-        // if (response.status === 200) {
-        //     const donnee = await response.json();
-        //     return donnee;
-        // }
+        let reponse = fetch("http://localhost:8080//choisirRole//" + jeton + "//" + role + "//", {
+            method: "GET"
+        });
+        if (reponse.status === 200) {
+            const donnee = await reponse.json();
+            return donnee;
+        }
         if (role === 1) return [
             {
                 mot: "Bateau",
@@ -253,7 +253,7 @@ export class ConnexionService{
         //     const donnee = await response.json();
         //     return donnee;
         // }
-        return {token: 8625632456, codePartie: "code35352"};
+        return {jeton: 8625632456, codePartie: "code35352"};
     }
     async rejoindre(code) {
         // fetch("http://localhost:8080/rejoindrePartie/" + code, {
@@ -263,6 +263,6 @@ export class ConnexionService{
         //     const donnee = await response.json();
         //     return donnee;
         // }
-        return {token : 75};
+        return {jeton : 75};
     }
 }

@@ -18,7 +18,7 @@ export class MaitreMotVue {
                 boutonEnvoyer.addEventListener("click", async () => {
                     let indice = entreeIndice.value;
                     let nombre = entreeNombre.value;
-                    let jeton = localStorage.getItem("token");
+                    let jeton = localStorage.getItem("jeton");
                     await maitreMotService.envoyerIndice(jeton ,indice, nombre);
                 });
                 grille.appendChild(carte_div);

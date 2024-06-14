@@ -16,20 +16,26 @@ export class RejoindreVue{
             boutonRejoindre.addEventListener("click", async () => {
                 let code = codePartie.value;
                 let connexionService = new ConnexionService();
-                let donnee = await connexionService.rejoindre(code);
-                sessionStorage.setItem("token", donnee.token);
-                let attendreVue = new AttenteVue();
-                attendreVue.afficherAttente();
+                try {
+                    let donnee = await connexionService.rejoindre(code);
+                    sessionStorage.setItem("jeton", donnee.jeton);
+                    let attendreVue = new AttenteVue();
+                    attendreVue.afficherAttente();
+                }
+                catch (e) {
+                    codePartie.value = "";
+                    codePartie.placeholder ="Code invalide";
+                }
 
             });
             boutonCreer.addEventListener("click", async () => {
                 let connexionService = new ConnexionService();
                 let donnee = await connexionService.creer();
-                let token = donnee.token;
-                sessionStorage.setItem("token", token);
+                let jeton = donnee.jeton;
+                sessionStorage.setItem("jeton", jeton);
                 let codePartie = donnee.codePartie;
                 let roleVue = new RoleVue();
-                roleVue.afficherRole(token, codePartie);
+                roleVue.afficherRole(codePartie);
 
             });
         });

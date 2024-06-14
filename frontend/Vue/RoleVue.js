@@ -22,17 +22,16 @@ export class RoleVue {
             boutonCopie.addEventListener("click", async () => {
                 boutonCopie.innerHTML = this.copier();
             });
-            let token = sessionStorage.getItem("token");
+            let jeton = sessionStorage.getItem("jeton");
             boutonMaitreMot.addEventListener("click", async () => {
                 let connexionService = new ConnexionService();
-                let grille = await connexionService.choisirRole(token,1);
-                console.log(grille);
+                let grille = await connexionService.choisirRole(jeton,1);
                 let maitreMotVue = new MaitreMotVue();
                 maitreMotVue.afficherMaitreMot(grille);
             });
             boutonMaitreIntuition.addEventListener("click", async () => {
                 let connexionService = new ConnexionService();
-                let grille = await connexionService.choisirRole(token,2);
+                let grille = await connexionService.choisirRole(jeton,2);
                 let maitreIntuitionVue = new MaitreIntuitionVue();
                 maitreIntuitionVue.afficherMaitreIntuition(grille);
 
