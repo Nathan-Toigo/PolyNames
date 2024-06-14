@@ -41,5 +41,29 @@ public class Indice {
     public String getCode_partie() {
         return code_partie;
     }
+
+    public void setId_indice(int id_indice) {
+        this.id_indice = id_indice;
+    }
+
+    public void setIndice(String indice) {
+        this.indice = indice;
+    }
+
+    public void setNb_carte_associe(int nb_carte_associe) {
+        this.nb_carte_associe = nb_carte_associe;
+    }
+
+    public void setNb_carte_trouve(int nb_carte_trouve) {
+        this.nb_carte_trouve = nb_carte_trouve;
+    }
+
+    public void setNumero_tour_associe(int numero_tour_associe) {
+        this.numero_tour_associe = numero_tour_associe;
+    }
+
+    public void setCode_partie(String code_partie) {
+        this.code_partie = code_partie;
+    }
     
 }

@@ -1,10 +1,12 @@
 package controleur;
 
 import BaseWebserver.WebServerContext;
+import BaseWebserver.WebServerSSEEventType;
 import dao.CarteDAO;
 import dao.JoueurDAO;
 import dao.MotDAO;
 import dao.PartieDAO;
+import gestionnaireSSE.GestionnaireConnection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import modele.Carte;
@@ -30,7 +32,8 @@ public class ControleurPartie {
             RequeteConnection reponse = new RequeteConnection(new JoueurClient(nouveauJoueur), new PartieClient(nouvellePartie));
             context.getResponse().json(reponse);
 
-            //Abonner le joueur en SSE au channel "channel_hote_" + nouvellePartie.getCode_Partie
+            context.getSSE().addEventListeners(WebServerSSEEventType.CONNECT, new GestionnaireConnection());
+            context.getSSE().addEventListeners(WebServerSSEEventType.SUBSCRIBE, new GestionnaireConnection());
         } catch (SQLException e) {
             System.err.println(e.getMessage());
         }
@@ -54,6 +57,9 @@ public class ControleurPartie {
             partieDAO.rendrePartieComplete(codePartie);
             context.getResponse().json(new JoueurClient(nouveauJoueur));
 
+            context.getSSE().addEventListeners(WebServerSSEEventType.CONNECT, new GestionnaireConnection());
+            context.getSSE().addEventListeners(WebServerSSEEventType.SUBSCRIBE, new GestionnaireConnection());
+            
             context.getSSE().emit("canal_hote_" + codePartie, "ok");
 
         } catch (SQLException e) {
@@ -132,6 +138,9 @@ public class ControleurPartie {
                 context.getResponse().json(reponseMaitreIntuition);
                 context.getSSE().emit("canal_distant_" + joueurDistant.getJeton(), reponseMaitreMot);
             }
+
+            context.getSSE().addEventListeners(WebServerSSEEventType.UNSUBSCRIBE, new GestionnaireConnection());
+            context.getSSE().addEventListeners(WebServerSSEEventType.UNSUBSCRIBE, new GestionnaireConnection());
 
         } catch (SQLException e) {
             System.err.println(e.getMessage());

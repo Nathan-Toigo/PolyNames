@@ -93,4 +93,11 @@ public class PartieDAO extends generiqueDAO {
         }
         return code;
     }
+
+    public void rafraichirScore(String codePartie, int score) throws SQLException {
+        PreparedStatement statement = this.pnDatabase.prepareStatement("UPDATE Joueur SET score = ? WHERE code_partie=?");
+        statement.setInt(1, score);
+        statement.setString(2, codePartie);
+        statement.executeUpdate();
+    }
 }
