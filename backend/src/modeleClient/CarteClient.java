@@ -3,7 +3,6 @@ package modeleClient;
 import modele.Carte;
 
 public class CarteClient {
-
     private String mot;
     private int couleur;
     private Boolean face_cachee;

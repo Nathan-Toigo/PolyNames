@@ -12,6 +12,7 @@ import modele.Joueur;
 import modele.Mot;
 import modele.Partie;
 import modeleClient.CarteClient;
+import modeleClient.EnvoieCartesJoueur;
 import modeleClient.JoueurClient;
 import modeleClient.PartieClient;
 import modeleClient.RequeteConnection;
@@ -53,8 +54,8 @@ public class ControleurPartie {
             partieDAO.rendrePartieComplete(codePartie);
             context.getResponse().json(new JoueurClient(nouveauJoueur));
 
-            //Abonner le joueur en SSE au channel "channel__" + nouvellePartie.getCode_Partie
-            //Envoyer à l'hote qu'un joueur s'est connecté
+            context.getSSE().emit("canal_hote_" + codePartie, "ok");
+
         } catch (SQLException e) {
             System.err.println(e.getMessage());
         }
@@ -104,9 +105,6 @@ public class ControleurPartie {
                 joueurDAO.rafraichirRoleJoueur(joueurDistant.getJeton(), 1);
             }
 
-            Joueur joueurHoteRafraichit = joueurDAO.recupererJoueurDepuisJeton(joueurHote.getJeton());
-            Joueur joueurDistantRafraichit = joueurDAO.recupererJoueurDepuisJeton(joueurDistant.getJeton());
-
             CarteDAO carteDAO = new CarteDAO();
             MotDAO motDAO = new MotDAO();
             ArrayList<Mot> mots = motDAO.recupererMotsNouvellePartie();
@@ -114,26 +112,26 @@ public class ControleurPartie {
             
             partieDAO.rendrePartieInitialisee(codePartieCourante);
 
-            ArrayList<CarteClient> cartesAEnvoyerHote = new ArrayList<>();
-            ArrayList<CarteClient> cartesAEnvoyerDistant = new ArrayList<>();
+            ArrayList<CarteClient> cartesAEnvoyerMaitreMot = new ArrayList<>();
+            ArrayList<CarteClient> cartesAEnvoyerMaitreIntuition = new ArrayList<>();
             for(Carte carte : nouvelleCartes){
-                CarteClient carteClientHote = new CarteClient(carte, joueurHoteRafraichit.getRole());
-                cartesAEnvoyerHote.add(carteClientHote);
-                CarteClient carteClientDistant = new CarteClient(carte, joueurDistantRafraichit.getRole());
-                cartesAEnvoyerDistant.add(carteClientDistant);
+                CarteClient carteClientHote = new CarteClient(carte, 1);
+                cartesAEnvoyerMaitreMot.add(carteClientHote);
+                CarteClient carteClientDistant = new CarteClient(carte, 2);
+                cartesAEnvoyerMaitreIntuition.add(carteClientDistant);
             }
+
+            EnvoieCartesJoueur reponseMaitreMot = new EnvoieCartesJoueur(cartesAEnvoyerMaitreMot, 1);
+            EnvoieCartesJoueur reponseMaitreIntuition = new EnvoieCartesJoueur(cartesAEnvoyerMaitreIntuition, 2);
 
             if(role == 1){
-                context.getResponse().json(cartesAEnvoyerHote);
-                //Envoyer en SSE les cartes sans les couleurs : cartesAEnvoyerDistant
+                context.getResponse().json(reponseMaitreMot);
+                context.getSSE().emit("canal_distant_" + joueurDistant.getJeton(), reponseMaitreIntuition);
             }
             else{
-                context.getResponse().json(cartesAEnvoyerHote);
-                //Envoyer en SSE les cartes avec les couleurs : cartesAEnvoyerDistant
+                context.getResponse().json(reponseMaitreIntuition);
+                context.getSSE().emit("canal_distant_" + joueurDistant.getJeton(), reponseMaitreMot);
             }
-
-
-            
 
         } catch (SQLException e) {
             System.err.println(e.getMessage());
