@@ -1,20 +1,39 @@
 
-import dao.MotDictionnaireDAO;
-import java.util.Dictionary;
-import java.util.Hashtable;
-import modele.MotDictionnaire;
+import BaseWebserver.WebServer;
+import BaseWebserver.WebServerContext;
+import controleur.ControleurIndice;
+import controleur.ControleurPartie;
 
 
 public class App {
     public static void main(String[] args) throws Exception {
 
-        MotDictionnaireDAO carteDAO = new MotDictionnaireDAO();
-        MotDictionnaire carte = new MotDictionnaire();
-        Dictionary<String,Integer> idCarte = new Hashtable<>();
-        idCarte.put("id_mot",43);
-        idCarte.put("id_dictionnaire",1);
-        var carteResult = carteDAO.recupererParId(carte, idCarte);
-        System.out.println(carteResult.getDictionnaire().getTitre());
+        WebServer webServer = new WebServer();
+        
+
+        webServer.getRouter().get("/creerPartie", (WebServerContext context) -> {
+            ControleurPartie.creerPartie(context);
+        });
+
+        webServer.getRouter().get("/rejoindrePartie/:code_partie", (WebServerContext context) -> {
+            ControleurPartie.rejoindrePartie(context);
+        });
+
+        webServer.getRouter().get("/choisirRole/:jeton/:role", (WebServerContext context) -> {
+            ControleurPartie.choisirRole(context);
+        });
+
+        webServer.getRouter().get("/envoyerIndice/:jeton/:indice/:nbMotAssocie", (WebServerContext context) -> {
+            ControleurIndice.envoyerIndice(context);
+        });
+
+        webServer.getRouter().get("/devinerMot/:jeton/:mot", (WebServerContext context) -> {
+            ControleurIndice.devinerMot(context);
+        });
+        
+        webServer.listen(8080);
+
+        
 
     }
 }
