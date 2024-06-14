@@ -35,4 +35,20 @@ public class Partie {
         return est_initialisee;
     }
 
+    public void setCode_partie(String code_partie) {
+        this.code_partie = code_partie;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
+    }
+
+    public void setEst_complete(Boolean est_complete) {
+        this.est_complete = est_complete;
+    }
+
+    public void setEst_initialisee(Boolean est_initialisee) {
+        this.est_initialisee = est_initialisee;
+    }
+
 }
