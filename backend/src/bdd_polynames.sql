@@ -1,5 +1,7 @@
 DROP DATABASE IF EXISTS polynames_database;
+
 CREATE DATABASE polynames_database;
+
 USE polynames_database;
 
 CREATE TABLE partie(
@@ -41,7 +43,7 @@ CREATE TABLE Carte(
    couleur INT,
    id_mot INT,
    code_partie CHAR(10),
-   PRIMARY KEY(id_mot,code_partie),
+   PRIMARY KEY(id_mot, code_partie),
    FOREIGN KEY(id_mot) REFERENCES Mot(id_mot),
    FOREIGN KEY(code_partie) REFERENCES partie(code_partie)
 );
