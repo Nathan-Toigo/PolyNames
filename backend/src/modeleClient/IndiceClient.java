@@ -1,18 +1,11 @@
 package modeleClient;
 
-import modele.Indice;
-
 public class IndiceClient {
     private String indice;
-    private int n;
+    private int nb_carte_associe ;
 
-    public IndiceClient(String indice, int n) {
+    public IndiceClient(String indice, int nb_carte_associe) {
         this.indice = indice;
-        this.n = n;
-    }
-
-    public IndiceClient(Indice indice){
-        this.indice = indice.getIndice();
-        this.n = indice.getN();
+        this.nb_carte_associe = nb_carte_associe;
     }
 }

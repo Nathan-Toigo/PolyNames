@@ -1,30 +1,38 @@
 package modele;
 
-import java.util.ArrayList;
-import java.util.Arrays;
+public class Partie {
+    private String code_partie;
+    private int score;
+    private Boolean est_complete;
+    private Boolean est_initialisee;
 
-public class Partie extends TableBDD{
-    private int id_partie;
-    private String code;
-
-    public Partie(){
-        super("Partie",new ArrayList<>(Arrays.asList("id_partie")));
-        this.id_partie = 0;
-        this.code = "0000000000";
+    public Partie() {
+        this.code_partie = "";
+        this.score = 0;
+        this.est_complete = false;
+    }
+    
+    public Partie(String code_partie, int score, Boolean est_complete, Boolean est_initialisee) {
+        this.code_partie = code_partie;
+        this.score = score;
+        this.est_complete = est_complete;
+        this.est_initialisee = est_initialisee;
     }
 
-    public Partie(int id_partie,String code){
-        super("Partie",new ArrayList<>(Arrays.asList("id_partie")));
-        this.id_partie = id_partie;
-        this.code = code;
+    public String getCode_partie() {
+        return code_partie;
     }
 
-    public int getId_partie() {
-        return id_partie;
+    public int getScore() {
+        return score;
     }
 
-    public String getCode() {
-        return code;
+    public Boolean getEst_complete() {
+        return est_complete;
+    }
+
+    public Boolean getEst_initialisee() {
+        return est_initialisee;
     }
 
 }

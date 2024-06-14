@@ -1,14 +1,8 @@
 
 import BaseWebserver.WebServer;
 import BaseWebserver.WebServerContext;
-import dao.GrilleJoueurDAO;
-import dao.JoueurDAO;
-import java.util.Dictionary;
-import java.util.Hashtable;
-import modele.Joueur;
-import serveurweb.ControlleurConnection;
-import serveurweb.ControlleurCreationCompte;
-import serveurweb.ControlleurMenuPrincipal;
+import controleur.ControleurIndice;
+import controleur.ControleurPartie;
 
 
 public class App {
@@ -16,35 +10,28 @@ public class App {
 
         WebServer webServer = new WebServer();
         
-        webServer.getRouter().get("/creer/:pseudonyme", (WebServerContext context) -> {
-            ControlleurCreationCompte.creerCompte(context);
+
+        webServer.getRouter().get("/creerPartie", (WebServerContext context) -> {
+            ControleurPartie.creerPartie(context);
         });
 
-        webServer.getRouter().get("/seConnecter/:pseudonyme", (WebServerContext context) -> {
-            ControlleurConnection.seConnecter(context);
+        webServer.getRouter().get("/rejoindrePartie/:code_partie", (WebServerContext context) -> {
+            ControleurPartie.rejoindrePartie(context);
         });
 
-        webServer.getRouter().get("/rejoindrePartie/:jeton/:code", (WebServerContext context) -> {
-            ControlleurMenuPrincipal.rejoindre(context);
+        webServer.getRouter().get("/choisirRole/:jeton/:role", (WebServerContext context) -> {
+            ControleurPartie.choisirRole(context);
         });
 
-        webServer.getRouter().get("/creerPartie/:jeton", (WebServerContext context) -> {
-            ControlleurMenuPrincipal.creer(context);
+        webServer.getRouter().get("/envoyerIndice/:jeton/:indice/:nbMotAssocie", (WebServerContext context) -> {
+            ControleurIndice.envoyerIndice(context);
         });
 
-        webServer.getRouter().get("/supprimerPartie/:jeton/", (WebServerContext context) -> {
-            ControlleurMenuPrincipal.supprimer(context);
+        webServer.getRouter().get("/devinerMot/:jeton/:mot", (WebServerContext context) -> {
+            ControleurIndice.devinerMot(context);
         });
         
         webServer.listen(8080);
-
-        GrilleJoueurDAO grilleJoueurDAO = new GrilleJoueurDAO();
-        JoueurDAO joueurDAO = new JoueurDAO();
-        Dictionary<String,Integer> cles = new Hashtable<>();
-        cles.put("id_joueur",1);
-
-        Joueur joueur = joueurDAO.recupererParId(new Joueur(), cles);
-        System.out.println(grilleJoueurDAO.recupererNombrePartieDepuisJoueur(joueur));
 
     }
 }

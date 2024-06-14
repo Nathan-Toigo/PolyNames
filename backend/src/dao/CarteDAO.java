@@ -1,52 +1,75 @@
 package dao;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Dictionary;
-import java.util.Hashtable;
 import modele.Carte;
-import modele.Couleur;
-import modele.Grille;
 import modele.Mot;
 
-public class CarteDAO extends generiqueDAO<Carte> {
+public class CarteDAO extends generiqueDAO {
 
-    public CarteDAO(){
+    public CarteDAO() {
         super();
     }
 
-    @Override
-    protected Carte genererTDepuisEnregistrement(ResultSet results) throws SQLException {
-        final Boolean face_cachee = results.getBoolean("face_cachee");
-        final byte ligne = results.getByte("ligne");
-        final byte colonne = results.getByte("colonne");
+    public Carte generateCardFromResultSet(ResultSet resultat) throws SQLException {
+        final Boolean face_cachee = resultat.getBoolean("face_cachee");
+        final int couleur = resultat.getInt("couleur");
+        final String code_partie = resultat.getString("code_partie");
 
-        Mot mot = new Mot();
+        final int id_mot = resultat.getInt("id_mot");
         MotDAO motDAO = new MotDAO();
-        Dictionary<String,Integer> idMot = new Hashtable<>();
-        idMot.put("id_mot",results.getInt("id_mot"));
-        mot = motDAO.recupererParId(mot, idMot);
+        final Mot mot = motDAO.recupererDepuisId(id_mot);
 
-        Couleur couleur = new Couleur();
-        CouleurDAO couleurDAO = new CouleurDAO();
-        Dictionary<String,Integer> idCouleur = new Hashtable<>();
-        idCouleur.put("id_couleur",results.getInt("id_couleur"));
-        couleur = couleurDAO.recupererParId(couleur, idCouleur);
-
-        Grille grille = new Grille();
-        GrilleDAO grilleDAO = new GrilleDAO();
-        Dictionary<String,Integer> idGrille = new Hashtable<>();
-        idGrille.put("id_grille",results.getInt("id_grille"));
-        grille = grilleDAO.recupererParId(grille, idGrille);
-
-        return new Carte(face_cachee,ligne,colonne,mot,couleur,grille);
+        return new Carte(mot, code_partie, couleur, face_cachee);
     }
 
-    public ArrayList<Carte> recupererCartesDepuisGrille(Grille grille) throws SQLException{
-        Dictionary<String, String> cles= new Hashtable<>();
-        cles.put("id_grille", Integer.toString(grille.getId_grille()));
-        
-        return this.recupererParChamp(new Carte(),cles);
+    public void insererCarte(Carte carte) throws SQLException {
+        PreparedStatement statement = this.pnDatabase.prepareStatement("INSERT INTO Carte(id_mot,code_partie,couleur,face_cachee) VALUES(?,?,?,?)");
+        statement.setInt(1, carte.getMot().getId_mot());
+        statement.setString(2, carte.getCode_partie());
+        statement.setInt(3, carte.getCouleur());
+        statement.setBoolean(4, carte.getFace_cachee());
+        statement.executeUpdate();
     }
+
+    public ArrayList<Carte> genererCartesPartie(ArrayList<Mot> mots, String codePartie) throws SQLException {
+        ArrayList<Mot> gris = new ArrayList<Mot>();
+        for (Mot word : mots) {
+            gris.add(word);
+        }
+        ArrayList<Mot> noir = new ArrayList<Mot>();
+        ArrayList<Mot> bleu = new ArrayList<Mot>();
+
+        for (int i = 0; i < 8; i++) {
+            int index = (int) (Math.random() * gris.size());
+            bleu.add(gris.get(index));
+            gris.remove(index);
+        }
+        for (int i = 0; i < 2; i++) {
+            int index = (int) (Math.random() * gris.size());
+            noir.add(gris.get(index));
+            gris.remove(index);
+        }
+
+        ArrayList<Carte> listeCarte = new ArrayList<>();
+
+        for (int i = 0; i < 25; i++) {
+            Mot mot = mots.get(i);
+            int couleur = 1;
+            if (noir.contains(mot)) {
+                couleur = 3;
+            } else if (bleu.contains(mot)) {
+                couleur = 2;
+            }
+
+            Carte nouvelleCarte = new Carte(mot, codePartie, couleur, true);
+            this.insererCarte(nouvelleCarte);
+            listeCarte.add(nouvelleCarte);
+        }
+        return listeCarte;
+    }
+
+    
 }

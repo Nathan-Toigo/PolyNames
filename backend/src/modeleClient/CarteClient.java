@@ -4,18 +4,22 @@ import modele.Carte;
 
 public class CarteClient {
     private String mot;
-    private String couleur;
+    private int couleur;
+    private Boolean face_cachee;
 
-    public CarteClient(String mot, String couleur) {
+    public CarteClient(String mot, int couleur, Boolean face_cachee) {
         this.mot = mot;
         this.couleur = couleur;
+        this.face_cachee = face_cachee;
     }
 
-    public CarteClient(Carte carte, Boolean maitreInt){
+    public CarteClient(Carte carte, int role) {
         this.mot = carte.getMot().getMot();
-        if(maitreInt)
-            this.couleur = "";
+        this.face_cachee = face_cachee;
+
+        if(role == 1)
+            this.couleur = couleur;
         else
-            this.couleur = carte.getCouleur().getCouleur();
+            this.couleur = 0;
     }
 }
