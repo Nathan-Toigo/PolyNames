@@ -12,6 +12,7 @@ import modele.Joueur;
 import modele.Mot;
 import modele.Partie;
 import modeleClient.CarteClient;
+import modeleClient.EnvoieCartesJoueur;
 import modeleClient.JoueurClient;
 import modeleClient.PartieClient;
 import modeleClient.RequeteConnection;
@@ -120,13 +121,16 @@ public class ControleurPartie {
                 cartesAEnvoyerMaitreIntuition.add(carteClientDistant);
             }
 
+            EnvoieCartesJoueur reponseMaitreMot = new EnvoieCartesJoueur(cartesAEnvoyerMaitreMot, 1);
+            EnvoieCartesJoueur reponseMaitreIntuition = new EnvoieCartesJoueur(cartesAEnvoyerMaitreIntuition, 2);
+
             if(role == 1){
-                context.getResponse().json(cartesAEnvoyerMaitreMot);
-                context.getSSE().emit("canal_distant_" + joueurDistant.getJeton(), cartesAEnvoyerMaitreIntuition);
+                context.getResponse().json(reponseMaitreMot);
+                context.getSSE().emit("canal_distant_" + joueurDistant.getJeton(), reponseMaitreIntuition);
             }
             else{
-                context.getResponse().json(cartesAEnvoyerMaitreIntuition);
-                context.getSSE().emit("canal_distant_" + joueurDistant.getJeton(), cartesAEnvoyerMaitreMot);
+                context.getResponse().json(reponseMaitreIntuition);
+                context.getSSE().emit("canal_distant_" + joueurDistant.getJeton(), reponseMaitreMot);
             }
 
         } catch (SQLException e) {
