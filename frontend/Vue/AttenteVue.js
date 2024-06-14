@@ -7,11 +7,11 @@ export class AttenteVue {
     constructor() {
         this.#clientSSE = new SSEClient("http://localhost:8080");
     }
-    afficherAttente() {
+    async afficherAttente() {
         VueAZero();
         let jeton = sessionStorage.getItem("jeton");
-        this.#clientSSE.connect();
-        this.#clientSSE.subscribe("attente", (reponse) => {
+        await this.#clientSSE.connect();
+        await this.#clientSSE.subscribe("canal_distant_".concat(Jeton), (reponse) => {
             let donnee = JSON.parse(reponse);
             let role = donnee.role;
             let grille = donnee.grille;
