@@ -57,16 +57,17 @@ export class MaitreIntuitionVue {
         return indice_div;
     }
     creerCarte(carte) {
-        let carte_div = document.createElement("button");
-        carte_div.classList.add("carte");
-        carte_div.classList.add("glass");
-        carte_div.classList.add("cliquable");
 
-        if(carte.couleur === "bleu")
+            let carte_div = document.createElement("button");
+            carte_div.classList.add("carte");
+            carte_div.classList.add("glass");
+            carte_div.innerHTML = carte.mot;
+
+        if(carte.couleur === 2)
             carte_div.classList.add("face-cachee-bleue");
-        else if(carte.couleur === "gris")
+        else if(carte.couleur === 1)
             carte_div.classList.add("face-cachee-neutre");
-        else if(carte.couleur === "noir")
+        else if(carte.couleur === 3)
             carte_div.classList.add("face-cachee-noire");
 
         if(carte.face_cachee) {
@@ -75,7 +76,6 @@ export class MaitreIntuitionVue {
 
         }
 
-        carte_div.innerHTML = carte.word;
         carte_div.addEventListener("click", async () => {
             let maitreIntuitionService = new MaitreIntuitionService();
             let nouvelleCarte = await maitreIntuitionService.envoyerCarte(carte.word);

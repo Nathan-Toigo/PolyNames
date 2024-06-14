@@ -1,6 +1,8 @@
 import VueAZero from "./VideVue.js";
 import {RejoindreVue} from "./RejoindreVue.js";
 import {SSEClient} from "../libs/sse-client.js";
+import {MaitreMotVue} from "./MaitreMotVue.js";
+import {MaitreIntuitionVue} from "./MaitreIntuitionVue.js";
 
 export class AttenteVue {
     #clientSSE
@@ -9,7 +11,7 @@ export class AttenteVue {
     }
     async afficherAttente() {
         VueAZero();
-        let jeton = sessionStorage.getItem("jeton");
+        let jeton = localStorage.getItem("jeton");
         let canal_distant_jeton = "canal_distant_".concat(jeton);
         await this.#clientSSE.connect();
 
@@ -24,8 +26,8 @@ export class AttenteVue {
             });
         });
 
-        await this.#clientSSE.subscribe(canal_distant_jeton, (reponse) => {
-            let donnee = JSON.parse(reponse);
+        await this.#clientSSE.subscribe(canal_distant_jeton, (donnee) => {
+
             let role = donnee.role;
             let grille = donnee.grille;
             if (role === 1) {

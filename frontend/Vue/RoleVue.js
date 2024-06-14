@@ -26,14 +26,14 @@ export class RoleVue {
                 boutonCopie.innerHTML = this.copier();
             });
 
-            let jeton = sessionStorage.getItem("jeton");
+            let jeton = localStorage.getItem("jeton");
 
             boutonMaitreMot.addEventListener("click", async () => {
                 try{
                     let connexionService = new ConnexionService();
-                    let grille = await connexionService.choisirRole(jeton,1);
+                    let donnee = await connexionService.choisirRole(jeton,1);
                     let maitreMotVue = new MaitreMotVue();
-                    maitreMotVue.afficherMaitreMot(grille);
+                    maitreMotVue.afficherMaitreMot(donnee.grille);
                 }
                 catch(e){
                     message.innerHTML = "En attente d'un autre joueur"
@@ -44,9 +44,9 @@ export class RoleVue {
             boutonMaitreIntuition.addEventListener("click", async () => {
                 try{
                 let connexionService = new ConnexionService();
-                let grille = await connexionService.choisirRole(jeton,2);
+                let donnee = await connexionService.choisirRole(jeton,2);
                 let maitreIntuitionVue = new MaitreIntuitionVue();
-                maitreIntuitionVue.afficherMaitreIntuition(grille);
+                maitreIntuitionVue.afficherMaitreIntuition(donnee.grille);
                 }
                 catch(e){
                     message.innerHTML = "En attente d'un autre joueur"

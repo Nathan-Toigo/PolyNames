@@ -19,10 +19,16 @@ export class MaitreMotVue {
                 boutonEnvoyer.addEventListener("click", async () => {
                     let indice = entreeIndice.value;
                     let nombre = entreeNombre.value;
-                    let jeton = sessionStorage.getItem("jeton");
+                    let jeton = localStorage.getItem("jeton");
                     let maitreMotService = new MaitreMotService;
                     await maitreMotService.envoyerIndice(jeton ,indice, nombre);
                 });
+                // simulation requête sse score
+                let score = 58;
+                let score_div = document.getElementsByClassName("score-entree")[0];
+                score_div.innerHTML = score;
+                // simulation requête sse score
+
                 grille.appendChild(carte_div);
             });
         });
@@ -32,11 +38,11 @@ export class MaitreMotVue {
         carte_div.classList.add("carte");
         carte_div.classList.add("glass");
         carte_div.innerHTML = carte.mot;
-        if(carte.couleur === "bleu")
+        if(carte.couleur === 2)
             carte_div.classList.add("bleue");
-        else if(carte.couleur === "noir")
+        else if(carte.couleur === 3)
             carte_div.classList.add("noire");
-        else if(carte.couleur === "gris")
+        else if(carte.couleur === 1)
             carte_div.classList.add("neutre");
         return carte_div;
     }
