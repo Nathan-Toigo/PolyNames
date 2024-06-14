@@ -88,7 +88,7 @@ public class ControleurPartie {
             Joueur joueurDistant = new Joueur();
 
             for(Joueur joueur : joueursDePartieCourante){
-                if(joueur != joueurHote){
+                if(!joueur.getEst_hote()){
                     joueurDistant = joueur;
                 }
             }
@@ -97,16 +97,15 @@ public class ControleurPartie {
             if(role == 1)
             {
                 joueurDAO.rafraichirRoleJoueur(joueurHote.getJeton(), 1);
-                joueurHote.setRole(1);
                 joueurDAO.rafraichirRoleJoueur(joueurDistant.getJeton(), 2);
-                joueurDistant.setRole(2);
             }
             else{
                 joueurDAO.rafraichirRoleJoueur(joueurHote.getJeton(), 2);
-                joueurHote.setRole(2);
                 joueurDAO.rafraichirRoleJoueur(joueurDistant.getJeton(), 1);
-                joueurDistant.setRole(1);
             }
+
+            Joueur joueurHoteRafraichit = joueurDAO.recupererJoueurDepuisJeton(joueurHote.getJeton());
+            Joueur joueurDistantRafraichit = joueurDAO.recupererJoueurDepuisJeton(joueurDistant.getJeton());
 
             CarteDAO carteDAO = new CarteDAO();
             MotDAO motDAO = new MotDAO();
@@ -118,22 +117,17 @@ public class ControleurPartie {
             ArrayList<CarteClient> cartesAEnvoyerHote = new ArrayList<>();
             ArrayList<CarteClient> cartesAEnvoyerDistant = new ArrayList<>();
             for(Carte carte : nouvelleCartes){
-                CarteClient carteClientHote = new CarteClient(carte, joueurHote.getRole());
+                CarteClient carteClientHote = new CarteClient(carte, joueurHoteRafraichit.getRole());
                 cartesAEnvoyerHote.add(carteClientHote);
-                CarteClient carteClientDistant = new CarteClient(carte, joueurDistant.getRole());
+                CarteClient carteClientDistant = new CarteClient(carte, joueurDistantRafraichit.getRole());
                 cartesAEnvoyerDistant.add(carteClientDistant);
             }
 
             if(role == 1){
-                joueurDAO.rafraichirRoleJoueur(joueurHote.getJeton(), 1);
-                joueurDAO.rafraichirRoleJoueur(joueurDistant.getJeton(), 2);
-
                 context.getResponse().json(cartesAEnvoyerHote);
                 //Envoyer en SSE les cartes sans les couleurs : cartesAEnvoyerDistant
             }
             else{
-                joueurDAO.rafraichirRoleJoueur(joueurHote.getJeton(), 2);
-                joueurDAO.rafraichirRoleJoueur(joueurDistant.getJeton(), 1);
                 context.getResponse().json(cartesAEnvoyerHote);
                 //Envoyer en SSE les cartes avec les couleurs : cartesAEnvoyerDistant
             }
