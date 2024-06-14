@@ -71,5 +71,16 @@ public class CarteDAO extends generiqueDAO {
         return listeCarte;
     }
 
+    public ArrayList<Carte> recupererCartesDepuisCodePartie(String codePartie) throws SQLException {
+        PreparedStatement statement = this.pnDatabase.prepareStatement("SELECT * FROM Carte WHERE code_partie = ?;");
+        statement.setString(1, codePartie);
+        ResultSet resultats = statement.executeQuery();
+        ArrayList<Carte> motsDepuisCodePartie = new ArrayList<Carte>();
+        while (resultats.next()) {
+            motsDepuisCodePartie.add(generateCardFromResultSet(resultats));
+        }
+        return motsDepuisCodePartie;
+    }
+
     
 }
