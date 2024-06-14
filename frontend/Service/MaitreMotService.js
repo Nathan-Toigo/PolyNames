@@ -1,14 +1,14 @@
 export class MaitreMotService {
     async envoyerIndice(jeton, indice, nombre) {
-        const response = await fetch("/envoyerIndice/"+jeton+"/"+indice+"/"+nombre, {
+        const reponse = await fetch("/envoyerIndice/".concat(jeton,"/",indice,"/",nombre), {
 
         });
-        if (response.status === 200) {
-            const data = await response.json();
+        if (reponse.status === 200) {
+            const data = await reponse.json();
             return data;
         }
 
     }
 
-    }
+}
 

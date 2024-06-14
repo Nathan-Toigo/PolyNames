@@ -1,3 +1,4 @@
+import { MaitreMotService } from "../Service/MaitreMotService.js";
 import VueAZero from "./VideVue.js";
 
 export class MaitreMotVue {
@@ -18,7 +19,8 @@ export class MaitreMotVue {
                 boutonEnvoyer.addEventListener("click", async () => {
                     let indice = entreeIndice.value;
                     let nombre = entreeNombre.value;
-                    let jeton = localStorage.getItem("jeton");
+                    let jeton = sessionStorage.getItem("jeton");
+                    let maitreMotService = new MaitreMotService;
                     await maitreMotService.envoyerIndice(jeton ,indice, nombre);
                 });
                 grille.appendChild(carte_div);

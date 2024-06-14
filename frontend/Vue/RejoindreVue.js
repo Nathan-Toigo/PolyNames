@@ -31,9 +31,9 @@ export class RejoindreVue{
             boutonCreer.addEventListener("click", async () => {
                 let connexionService = new ConnexionService();
                 let donnee = await connexionService.creer();
-                let jeton = donnee.jeton;
+                let jeton = donnee.joueurClient.jeton;
                 sessionStorage.setItem("jeton", jeton);
-                let codePartie = donnee.codePartie;
+                let codePartie = donnee.partieClient.code_partie;
                 let roleVue = new RoleVue();
                 roleVue.afficherRole(codePartie);
 
