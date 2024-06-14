@@ -10,7 +10,7 @@ export class RoleVue {
 
     afficherRole(codePartie) {
         VueAZero();
-        fetch("/PolyNames/frontend/Vue/Patron/role.html").then(response => response.text()).then(text => {
+        fetch("Vue/Patron/role.html").then(response => response.text()).then(text => {
             document.getElementById("principal").innerHTML += text;
 
             let boutonCopie = document.getElementsByTagName("button")[0];

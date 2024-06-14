@@ -6,7 +6,7 @@ export class MaitreMotVue {
 
     afficherMaitreMot(liste_cartes) {
         VueAZero();
-        fetch("/PolyNames/frontend/Vue/Patron/maitreMot.html").then(response => response.text()).then(text => {
+        fetch("Vue/Patron/maitreMot.html").then(response => response.text()).then(text => {
             document.getElementById("principal").innerHTML += text;
             let grille = document.getElementById("cartes");
 

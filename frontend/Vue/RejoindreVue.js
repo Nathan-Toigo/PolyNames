@@ -8,7 +8,7 @@ export class RejoindreVue{
 
     afficherRejoindre() {
         VueAZero();
-        fetch("/PolyNames/frontend/Vue/Patron/rejoindre.html").then(response => response.text()).then(text => {
+        fetch("Vue/Patron/rejoindre.html").then(response => response.text()).then(text => {
             document.getElementById("principal").innerHTML += text;
             let codePartie = document.getElementsByTagName("input")[0];
             let boutonRejoindre = document.getElementsByTagName("button")[0];

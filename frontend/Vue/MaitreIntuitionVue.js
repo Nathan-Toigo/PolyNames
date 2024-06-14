@@ -7,7 +7,7 @@ export class MaitreIntuitionVue {
 
     afficherMaitreIntuition(liste_cartes) {
         VueAZero();
-        fetch("/PolyNames/frontend/Vue/Patron/maitreIntuition.html").then(response => response.text()).then(text => {
+        fetch("Vue/Patron/maitreIntuition.html").then(response => response.text()).then(text => {
             document.getElementById("principal").innerHTML += text;
             let grille = document.getElementById("cartes");
 
