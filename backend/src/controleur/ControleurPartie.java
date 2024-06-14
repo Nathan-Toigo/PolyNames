@@ -30,7 +30,6 @@ public class ControleurPartie {
             RequeteConnection reponse = new RequeteConnection(new JoueurClient(nouveauJoueur), new PartieClient(nouvellePartie));
             context.getResponse().json(reponse);
 
-            //Abonner le joueur en SSE au channel "channel_hote_" + nouvellePartie.getCode_Partie
         } catch (SQLException e) {
             System.err.println(e.getMessage());
         }
@@ -53,7 +52,7 @@ public class ControleurPartie {
 
             partieDAO.rendrePartieComplete(codePartie);
             context.getResponse().json(new JoueurClient(nouveauJoueur));
-
+            
             context.getSSE().emit("canal_hote_" + codePartie, "ok");
 
         } catch (SQLException e) {

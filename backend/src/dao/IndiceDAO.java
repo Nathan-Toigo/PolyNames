@@ -33,21 +33,20 @@ public class IndiceDAO extends generiqueDAO{
         return nbIndiceDansPartie;
     }
 
-    public int recupererDernierIndice(String code_partie) throws SQLException {
+    public Indice recupererDernierIndice(String code_partie) throws SQLException {
         PreparedStatement statement = this.pnDatabase.prepareStatement("SELECT * FROM Indice WHERE numero_tour_associe = (SELECT Max(numero_tour_associe) FROM Indice WHERE code_partie=?);");
         statement.setString(1, code_partie);
         ResultSet resultats = statement.executeQuery();
-        int nbIndiceDansPartie  = 0;
+        Indice dernierIndice = new Indice(0, code_partie, 0, 0, 0, code_partie);
         while (resultats.next()) {
-            nbIndiceDansPartie = resultats.getInt("nbIndice");
+            dernierIndice = generateCardFromResultSet(resultats);
         }
-
-        return nbIndiceDansPartie;
+        return dernierIndice;
     }
 
     public Indice insererNouveauIndice(Indice indice) throws SQLException {
         int numTour = this.recupererNbIndiceDansPartie(indice.getCode_partie()) + 1;
-        PreparedStatement statement = this.pnDatabase.prepareStatement("INSERT INTO Indice(indice,nb_carte_associe,nb_carte_trouve,numero_tour_associe,code_partie) VALUES(?,?,0,?,?);");
+        PreparedStatement statement = this.pnDatabase.prepareStatement("UPDATE Indice SET indice = ? ,nb_carte_associe = ? ,nb_carte_trouve = ?,numero_tour_associe = ?,code_partie = ? WHERE id_indice = ?;");
         statement.setString(1, indice.getIndice());
         statement.setInt(2, indice.getNb_carte_associe());
         statement.setInt(3, numTour);
@@ -55,6 +54,13 @@ public class IndiceDAO extends generiqueDAO{
         statement.executeUpdate();
 
         return new Indice(0,indice.getIndice(),indice.getNb_carte_associe(),indice.getNb_carte_trouve(),numTour,indice.getCode_partie());
+    }
+
+    public void rafraichirIndice(String jeton, int role) throws SQLException {
+        PreparedStatement statement = this.pnDatabase.prepareStatement("UPDATE Joueur SET role = ? WHERE jeton=?");
+        statement.setInt(1, role);
+        statement.setString(2, jeton);
+        statement.executeUpdate();
     }
     
 }
