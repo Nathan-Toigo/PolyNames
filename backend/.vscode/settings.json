@@ -4,6 +4,7 @@
     ],
     "java.project.outputPath": "bin",
     "java.project.referencedLibraries": [
-        "lib\\mysql-connector-j-8.4.0.jar"
+        "lib\\gson-2.10.1.jar",
+        "d:\\ESIREM\\S6\\Polynames\\PolyNames\\backend\\lib\\mysql-connector-j-8.4.0.jar"
     ]
 }
