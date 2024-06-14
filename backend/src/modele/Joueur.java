@@ -1,29 +1,51 @@
 package modele;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-
-public class Joueur extends TableBDD{
-    private int id_joueur;
-    private String pseudonyme;
-
-    public Joueur(){
-        super("Joueur",new ArrayList<>(Arrays.asList("id_joueur")));
-        this.id_joueur = 0;
-        this.pseudonyme = "";
+public class Joueur {
+    private String jeton;
+    private Boolean est_hote;
+    private int role;
+    private String code_partie;
+    
+    public Joueur() {
     }
 
-    public Joueur(int id_joueur, String pseudonyme){
-        super("Joueur",new ArrayList<>(Arrays.asList("id_joueur")));
-        this.id_joueur = id_joueur;
-        this.pseudonyme = pseudonyme;
+    public Joueur(String jeton, Boolean est_hote, int role, String code_partie) {
+        this.jeton = jeton;
+        this.est_hote = est_hote;
+        this.role = role;
+        this.code_partie = code_partie;
     }
 
-    public int getId_joueur() {
-        return id_joueur;
+    public String getJeton() {
+        return jeton;
     }
 
-    public String getPseudonyme() {
-        return pseudonyme;
+    public Boolean getEst_hote() {
+        return est_hote;
     }
+
+    public int getRole() {
+        return role;
+    }
+
+    public String getCode_partie() {
+        return code_partie;
+    }
+
+    public void setJeton(String jeton) {
+        this.jeton = jeton;
+    }
+
+    public void setEst_hote(Boolean est_hote) {
+        this.est_hote = est_hote;
+    }
+
+    public void setRole(int role) {
+        this.role = role;
+    }
+
+    public void setCode_partie(String code_partie) {
+        this.code_partie = code_partie;
+    }
+    
 }
