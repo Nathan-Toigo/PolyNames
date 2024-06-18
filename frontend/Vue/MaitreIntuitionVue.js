@@ -22,7 +22,7 @@ export class MaitreIntuitionVue {
             // simulation requête sse score
 
             // simulation requête sse indice
-            let indice ="Soleil"
+            let indice = "Soleil"
             let nombre = 2;
             let indices = document.getElementsByClassName("sous-indices")[0];
             indices.appendChild(this.creerIndice(indice, nombre));
@@ -33,7 +33,7 @@ export class MaitreIntuitionVue {
             // simulation requête sse indice
 
             // simulation 2eme requête sse indice
-            let indice2 ="Lune"
+            let indice2 = "Lune"
             let nombre2 = 3;
             indices.appendChild(this.creerIndice(indice2, nombre2));
             let indice_entree2 = document.getElementsByClassName("indice-entree")[0];
@@ -56,21 +56,22 @@ export class MaitreIntuitionVue {
         indice_div.appendChild(nombre_p);
         return indice_div;
     }
+
     creerCarte(carte) {
 
-            let carte_div = document.createElement("button");
-            carte_div.classList.add("carte");
-            carte_div.classList.add("glass");
-            carte_div.innerHTML = carte.mot;
+        let carte_div = document.createElement("button");
+        carte_div.classList.add("carte");
+        carte_div.classList.add("glass");
+        carte_div.innerHTML = carte.mot;
 
-        if(carte.couleur === 2)
+        if (carte.couleur === 2)
             carte_div.classList.add("face-cachee-bleue");
-        else if(carte.couleur === 1)
+        else if (carte.couleur === 1)
             carte_div.classList.add("face-cachee-neutre");
-        else if(carte.couleur === 3)
+        else if (carte.couleur === 3)
             carte_div.classList.add("face-cachee-noire");
 
-        if(carte.face_cachee) {
+        if (carte.face_cachee) {
             carte_div.classList.remove("cliquable");
             carte_div.disabled = true;
 

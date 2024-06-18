@@ -1,8 +1,8 @@
 import VueAZero from "./VideVue.js";
 import { ConnexionService } from "../Service/ConnexionService.js";
 import { RoleVue } from "./RoleVue.js";
-import {AttenteVue} from "./AttenteVue.js";
-export class RejoindreVue{
+import { AttenteVue } from "./AttenteVue.js";
+export class RejoindreVue {
     constructor() {
     }
 
@@ -24,7 +24,7 @@ export class RejoindreVue{
                 }
                 catch (e) {
                     codePartie.value = "";
-                    codePartie.placeholder ="Code invalide";
+                    codePartie.placeholder = "Code invalide";
                 }
 
             });

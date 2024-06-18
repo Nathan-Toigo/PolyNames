@@ -29,26 +29,26 @@ export class RoleVue {
             let jeton = localStorage.getItem("jeton");
 
             boutonMaitreMot.addEventListener("click", async () => {
-                try{
+                try {
                     let connexionService = new ConnexionService();
-                    let donnee = await connexionService.choisirRole(jeton,1);
+                    let donnee = await connexionService.choisirRole(jeton, 1);
                     let maitreMotVue = new MaitreMotVue();
                     maitreMotVue.afficherMaitreMot(donnee.grille);
                 }
-                catch(e){
+                catch (e) {
                     message.innerHTML = "En attente d'un autre joueur"
                 }
-                
+
             });
 
             boutonMaitreIntuition.addEventListener("click", async () => {
-                try{
-                let connexionService = new ConnexionService();
-                let donnee = await connexionService.choisirRole(jeton,2);
-                let maitreIntuitionVue = new MaitreIntuitionVue();
-                maitreIntuitionVue.afficherMaitreIntuition(donnee.grille);
+                try {
+                    let connexionService = new ConnexionService();
+                    let donnee = await connexionService.choisirRole(jeton, 2);
+                    let maitreIntuitionVue = new MaitreIntuitionVue();
+                    maitreIntuitionVue.afficherMaitreIntuition(donnee.grille);
                 }
-                catch(e){
+                catch (e) {
                     message.innerHTML = "En attente d'un autre joueur"
                 }
 

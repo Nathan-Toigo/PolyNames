@@ -21,7 +21,7 @@ export class MaitreMotVue {
                     let nombre = entreeNombre.value;
                     let jeton = localStorage.getItem("jeton");
                     let maitreMotService = new MaitreMotService;
-                    await maitreMotService.envoyerIndice(jeton ,indice, nombre);
+                    await maitreMotService.envoyerIndice(jeton, indice, nombre);
                 });
                 // simulation requête sse score
                 let score = 58;
@@ -38,11 +38,11 @@ export class MaitreMotVue {
         carte_div.classList.add("carte");
         carte_div.classList.add("glass");
         carte_div.innerHTML = carte.mot;
-        if(carte.couleur === 2)
+        if (carte.couleur === 2)
             carte_div.classList.add("bleue");
-        else if(carte.couleur === 3)
+        else if (carte.couleur === 3)
             carte_div.classList.add("noire");
-        else if(carte.couleur === 1)
+        else if (carte.couleur === 1)
             carte_div.classList.add("neutre");
         return carte_div;
     }

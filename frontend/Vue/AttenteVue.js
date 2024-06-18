@@ -1,13 +1,14 @@
 import VueAZero from "./VideVue.js";
-import {RejoindreVue} from "./RejoindreVue.js";
-import {SSEClient} from "../libs/sse-client.js";
-import {MaitreMotVue} from "./MaitreMotVue.js";
-import {MaitreIntuitionVue} from "./MaitreIntuitionVue.js";
+import { RejoindreVue } from "./RejoindreVue.js";
+import { SSEClient } from "../libs/sse-client.js";
+import { MaitreMotVue } from "./MaitreMotVue.js";
+import { MaitreIntuitionVue } from "./MaitreIntuitionVue.js";
+import { URL_SERVEUR, URL_SSE } from "../const.js";
 
 export class AttenteVue {
     #clientSSE
     constructor() {
-        this.#clientSSE = new SSEClient("localhost:8080");
+        this.#clientSSE = new SSEClient(URL_SSE);
     }
     async afficherAttente() {
         VueAZero();

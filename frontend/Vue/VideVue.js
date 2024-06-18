@@ -1,3 +1,3 @@
-export default function VueAZero () {
+export default function VueAZero() {
     document.getElementById("principal").innerHTML = "";
 }
